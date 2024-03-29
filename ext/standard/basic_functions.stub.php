@@ -260,6 +260,19 @@ const PHP_QUERY_RFC1738 = UNKNOWN;
 const PHP_QUERY_RFC3986 = UNKNOWN;
 
 /**
+ * @var string
+ * @cvalue PHP_BASE32_ASCII
+ */
+const PHP_BASE32_ASCII = UNKNOWN;
+
+/**
+ * @var string
+ * @cvalue PHP_BASE32_HEX
+ */
+const PHP_BASE32_HEX = UNKNOWN;
+
+
+/**
  * @var float
  * @cvalue M_E
  */
