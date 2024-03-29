@@ -1,0 +1,10 @@
+
+#ifndef BASE32_H
+#define BASE32_H
+
+extern const char *PHP_BASE32_ASCII = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
+extern const char *PHP_BASE32_HEX = "0123456789ABCDEFGHIJKLMNOPQRSTUV";
+PHP_FUNCTION(base32_decode);
+PHP_FUNCTION(base32_encode);
+
+#endif
