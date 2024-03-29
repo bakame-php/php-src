@@ -1924,6 +1924,20 @@ function array_combine(array $keys, array $values): array {}
 /** @compile-time-eval */
 function array_is_list(array $array): bool {}
 
+/* base32.c */
+
+/**
+ * @compile-time-eval
+ * @refcount 1
+ */
+function base32_encode(string $decoded, string $alphabet = PHP_BASE32_ASCII, string $padding = '='): string {}
+
+/**
+ * @compile-time-eval
+ * @refcount 1
+ */
+function base32_decode(string $encoded, string $alphabet = PHP_BASE32_ASCII, string $padding = '=', bool $strict = false): string|false {}
+
 /* base64.c */
 
 /**
