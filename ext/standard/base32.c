@@ -114,7 +114,7 @@ PHP_FUNCTION(base32_decode)
     int offset = 0, bitLen = 0, val = 0, len, shift;
     bool strict;
 
-	ZEND_PARSE_PARAMETERS_START(1, 3)
+	ZEND_PARSE_PARAMETERS_START(1, 4)
 		Z_PARAM_STR(encoded)
 		Z_PARAM_OPTIONAL
 		Z_PARAM_STR(alphabet)
