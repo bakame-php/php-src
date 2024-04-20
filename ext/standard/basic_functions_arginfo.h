@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: b8ea4527467c70a6f665129cd5d5f34ea2386a70 */
+ * Stub hash: 929b27449ba8839b14a248c62ef2d4ff14a0daad */
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_set_time_limit, 0, 1, _IS_BOOL, 0)
 	ZEND_ARG_TYPE_INFO(0, seconds, IS_LONG, 0)
@@ -362,6 +362,19 @@ ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_array_is_list, 0, 1, _IS_BOOL, 0)
 	ZEND_ARG_TYPE_INFO(0, array, IS_ARRAY, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_base32_encode, 0, 1, IS_STRING, 0)
+	ZEND_ARG_TYPE_INFO(0, decoded, IS_STRING, 0)
+	ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, alphabet, IS_STRING, 0, "PHP_BASE32_ASCII")
+	ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, padding, IS_STRING, 0, "\'=\'")
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_MASK_EX(arginfo_base32_decode, 0, 1, MAY_BE_STRING|MAY_BE_FALSE)
+	ZEND_ARG_TYPE_INFO(0, encoded, IS_STRING, 0)
+	ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, alphabet, IS_STRING, 0, "PHP_BASE32_ASCII")
+	ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, padding, IS_STRING, 0, "\'=\'")
+	ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, strict, _IS_BOOL, 0, "false")
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_base64_encode, 0, 1, IS_STRING, 0)
@@ -2404,6 +2417,8 @@ ZEND_FUNCTION(array_key_exists);
 ZEND_FUNCTION(array_chunk);
 ZEND_FUNCTION(array_combine);
 ZEND_FUNCTION(array_is_list);
+ZEND_FUNCTION(base32_encode);
+ZEND_FUNCTION(base32_decode);
 ZEND_FUNCTION(base64_encode);
 ZEND_FUNCTION(base64_decode);
 ZEND_FUNCTION(constant);
@@ -3027,6 +3042,8 @@ static const zend_function_entry ext_functions[] = {
 	ZEND_RAW_FENTRY("array_chunk", zif_array_chunk, arginfo_array_chunk, ZEND_ACC_COMPILE_TIME_EVAL, NULL, NULL)
 	ZEND_RAW_FENTRY("array_combine", zif_array_combine, arginfo_array_combine, ZEND_ACC_COMPILE_TIME_EVAL, NULL, NULL)
 	ZEND_RAW_FENTRY("array_is_list", zif_array_is_list, arginfo_array_is_list, ZEND_ACC_COMPILE_TIME_EVAL, NULL, NULL)
+	ZEND_RAW_FENTRY("base32_encode", zif_base32_encode, arginfo_base32_encode, ZEND_ACC_COMPILE_TIME_EVAL, NULL, NULL)
+	ZEND_RAW_FENTRY("base32_decode", zif_base32_decode, arginfo_base32_decode, ZEND_ACC_COMPILE_TIME_EVAL, NULL, NULL)
 	ZEND_RAW_FENTRY("base64_encode", zif_base64_encode, arginfo_base64_encode, ZEND_ACC_COMPILE_TIME_EVAL, NULL, NULL)
 	ZEND_RAW_FENTRY("base64_decode", zif_base64_decode, arginfo_base64_decode, ZEND_ACC_COMPILE_TIME_EVAL, NULL, NULL)
 	ZEND_FE(constant, arginfo_constant)
@@ -3630,6 +3647,8 @@ static void register_basic_functions_symbols(int module_number)
 	REGISTER_LONG_CONSTANT("PHP_URL_FRAGMENT", PHP_URL_FRAGMENT, CONST_PERSISTENT);
 	REGISTER_LONG_CONSTANT("PHP_QUERY_RFC1738", PHP_QUERY_RFC1738, CONST_PERSISTENT);
 	REGISTER_LONG_CONSTANT("PHP_QUERY_RFC3986", PHP_QUERY_RFC3986, CONST_PERSISTENT);
+	REGISTER_STRING_CONSTANT("PHP_BASE32_ASCII", PHP_BASE32_ASCII, CONST_PERSISTENT);
+	REGISTER_STRING_CONSTANT("PHP_BASE32_HEX", PHP_BASE32_HEX, CONST_PERSISTENT);
 	REGISTER_DOUBLE_CONSTANT("M_E", M_E, CONST_PERSISTENT);
 	ZEND_ASSERT(M_E == 2.718281828459045);
 	REGISTER_DOUBLE_CONSTANT("M_LOG2E", M_LOG2E, CONST_PERSISTENT);
