@@ -73,6 +73,7 @@ PHP_FUNCTION(base32_encode)
 
 		smart_str_appends(&unique_chars, c);
 	}
+	smart_str_free(&unique_chars);
 
 	len = ZSTR_LEN(decoded);
 	if (len == 0) {
