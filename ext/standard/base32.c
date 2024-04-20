@@ -106,3 +106,66 @@ PHP_FUNCTION(base32_encode)
     RETURN_STR(ret_val);
 }
 /* }}} */
+
+/* {{{ functions to allow decoding a base32 encoded string using RFC4648 base32 algorithm. */
+PHP_FUNCTION(base32_decode)
+{
+    zend_string *encoded, *padding = base32_pad, *alphabet = PHP_BASE32_ASCII;
+    int offset = 0, bitLen = 0, val = 0, len, shift;
+    bool strict;
+
+	ZEND_PARSE_PARAMETERS_START(1, 3)
+		Z_PARAM_STR(encoded)
+		Z_PARAM_OPTIONAL
+		Z_PARAM_STR(alphabet)
+		Z_PARAM_STR(padding)
+		Z_PARAM_BOOL(strict)
+	ZEND_PARSE_PARAMETERS_END();
+
+	if (ZSTR_LEN(padding) != 1) {
+		zend_argument_value_error(3, "The padding character must be a single byte character.");
+		RETURN_THROWS();
+	}
+
+	if (strcspn(reserved, ZSTR_VAL(padding)) != 4) {
+		zend_argument_value_error(1, "The padding character can not be a reserved character.");
+		RETURN_THROWS();
+	}
+
+	if (ZSTR_LEN(alphabet) != 32) {
+		zend_argument_value_error(1, "The alphabet must be a 32 bytes long string.");
+		RETURN_THROWS();
+	}
+
+	zend_string *upper_alpha = zend_string_toupper(alphabet);
+	zend_string *upper_padding = zend_string_toupper(padding);
+	zend_string *reserved_chars = zend_string_concat2(reserved, 4, ZSTR_VAL(upper_padding), 1);
+
+	if (strcspn(ZSTR_VAL(upper_alpha), reserved_chars) != 32) {
+		zend_argument_value_error(1, "The alphabet can not contain a reserved character or the padding character.");
+		RETURN_THROWS();
+	}
+
+	smart_str unique_chars = {0};
+	for (int i = 0; i < 32; i++) {
+		char c = upper_alpha[i];
+		if (strstr(unique_chars, c)) {
+			zend_argument_value_error(1, 'The alphabet must only contain unique characters.');
+			RETURN_THROWS();
+		}
+
+		smart_str_appends(&unique_chars, c);
+	}
+	smart_str_free(&unique_chars);
+
+	len = ZSTR_LEN(encoded);
+	if (len == 0) {
+		RETURN_EMPTY_STRING();
+	}
+
+	//@todo adding encoded validation
+	//@todo adding RFC4648 decoding algorithm
+
+    RETURN_STR(encoded);
+}
+/* }}} */
